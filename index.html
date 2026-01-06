@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rain Intensity</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Bootstrap 4.6 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <!-- (Optional) keep your existing custom styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js + time adapter -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+
+ 
+</head>
+
+<body>
+  <div class="container-fluid py-3">
+
+    <!-- CHART -->
+    <div class="card mb-3">
+      <div class="card-body p-2">
+        <div class="chartWrap">
+          <canvas id="chart"></canvas>
+        </div>
+        <div id="status" class="alert alert-secondary py-2 mb-0" role="alert" style="background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.12); color:#fff;">
+            Loading…
+          </div>
+      </div>
+    </div>
+
+    <!-- Mobile scroll-down arrow -->
+<button id="scrollDownBtn"
+        class="scroll-down-btn d-md-none"
+        aria-label="Scroll to controls">
+  ↓
+</button>
+
+    <!-- CONTROLS -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-12 col-md-6">
+              <label for="pointSelect" class="small mb-1 text-muted">Point</label>
+              <select id="pointSelect" class="custom-select" aria-label="Select point">
+                <option value="" selected disabled>Loading points…</option>
+              </select>
+            </div>
+
+            <div class="form-group col-12 col-md-6">
+              <label for="windowHours" class="small mb-1 text-muted">Show last…</label>
+              <select id="windowHours" class="custom-select" aria-label="Select time window">
+                <option value="6">6 hours</option>
+                <option value="12">12 hours</option>
+                <option value="24" selected>24 hours</option>
+                <option value="48">48 hours</option>
+                <option value="72">72 hours</option>
+                <option value="168">1 week</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- <div id="status" class="alert alert-secondary py-2 mb-0" role="alert" style="background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.12); color:#fff;">
+            Loading…
+          </div> -->
+        </form>
+      </div>
+    </div>
+
+    <!-- REFERENCE TABLE -->
+    <div class="card">
+      <div class="card-header py-2">
+        <div class="font-weight-bold">Reflectivity (dBZ) Reference</div>
+        <div class="small text-muted">Approximate interpretation</div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-sm mb-0 text-white">
+            <thead>
+              <tr>
+                <th style="width:70px;">dBZ</th>
+                <th>Intensity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="font-weight-bold">5</td><td>Trace accumulation or mist</td></tr>
+              <tr><td class="font-weight-bold">15</td><td>Trace accumulation</td></tr>
+              <tr><td class="font-weight-bold">20</td><td>Light rain</td></tr>
+              <tr><td class="font-weight-bold">30</td><td>Light to moderate rain</td></tr>
+              <tr><td class="font-weight-bold">35</td><td>Moderate rain</td></tr>
+              <tr><td class="font-weight-bold">40</td><td>Moderate to heavy rain</td></tr>
+              <tr><td class="font-weight-bold">45</td><td>Heavy rain</td></tr>
+              <tr><td class="font-weight-bold">50</td><td>Heavy rain, small hail possible</td></tr>
+              <tr><td class="font-weight-bold">55</td><td>Very heavy rain, hail possible</td></tr>
+              <tr><td class="font-weight-bold">60</td><td>Very heavy rain, hail likely</td></tr>
+              <tr><td class="font-weight-bold">65</td><td>Very heavy rain, large hail possible</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- jQuery + Bootstrap 4 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- your app -->
+  <script src="rain.js"></script>
+</body>
+</html>
