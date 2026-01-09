@@ -97,7 +97,7 @@ def handler(request):
                 points = sorted(s)
                 return _json({"count": len(points), "items": points})
 
-# GET /v1/nexrain/points  (also allow /nexrain/points)
+        # GET /v1/nexrain/points  (also allow /nexrain/points)
         if method == "GET" and path in ("/v1/nexrain/allpoints", "/nexrain/allpoints"):
             # Projection/distinct is efficient if supported
             try:
@@ -156,6 +156,7 @@ def handler(request):
                     "DT": _dt_str_ampm(dtv),
                     "DT_ISO": dtv.isoformat() if isinstance(dtv, datetime) else None,
                     "DBZ": e.get("DBZ"),
+                    "DESCRIPT": e.get("DESCRIPT"),
                 })
 
             return _json({

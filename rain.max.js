@@ -8,6 +8,17 @@ let fullSeries = []; // all points returned from API (ms timestamps)
 let minTs = 0;
 let maxTs = 0;
 
+
+function getUrlParam(name) {
+  try {
+    return new URLSearchParams(window.location.search).get(name);
+  } catch (_) {
+    return null;
+  }
+}
+
+
+
 // ---------- UI helpers (jQuery) ----------
 function setStatus(msg, isError = false) {
   const $s = $("#status");
@@ -204,6 +215,10 @@ function refreshForSelectedPoint() {
 function init() {
   setStatus("Loading points…");
 
+  // URL params (support a couple names for convenience)
+  const pointParam = getUrlParam("point");
+  const hoursParam = getUrlParam("hours") || getUrlParam("windowHours");
+
   loadPoints().then((points) => {
     const $sel = $("#pointSelect");
     $sel.empty();
@@ -212,8 +227,25 @@ function init() {
       $sel.append($("<option>", { value: p, text: p }));
     });
 
-    // Select first point
-    if (points.length) {
+    // 1) windowHours from URL (must match an existing option)
+    if (hoursParam) {
+      const hoursStr = String(hoursParam).trim();
+      if ($("#windowHours option[value='" + hoursStr.replace(/'/g, "\\'") + "']").length) {
+        $("#windowHours").val(hoursStr);
+      }
+    }
+
+    // 2) point from URL (must match one of the loaded points)
+    if (pointParam) {
+      const wanted = String(pointParam).trim();
+      const match = points.find(p => String(p).toLowerCase() === wanted.toLowerCase());
+      if (match) {
+        $sel.val(match);
+      } else if (points.length) {
+        $sel.val(points[0]);
+      }
+    } else if (points.length) {
+      // default behavior
       $sel.val(points[0]);
     }
 
