@@ -21,12 +21,12 @@ function getUrlParam(name) {
 
 // ---------- UI helpers (jQuery) ----------
 function setStatus(msg, isError = false) {
-  const $s = $("#status");
-  $s.text(msg);
+  // const $s = $("#status");
+  // $s.text(msg);
 
-  // Bootstrap alert styling
-  $s.removeClass("alert-secondary alert-danger");
-  $s.addClass(isError ? "alert-danger" : "alert-secondary");
+  // // Bootstrap alert styling
+  // $s.removeClass("alert-secondary alert-danger");
+  // $s.addClass(isError ? "alert-danger" : "alert-secondary");
 }
 
 function fmt(dtMs) {
